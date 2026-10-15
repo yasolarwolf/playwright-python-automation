@@ -1,0 +1,11 @@
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+allure-results/
+allure-report/
+.vscode/
+.idea/
