@@ -13,5 +13,8 @@ class InventoryPage(BasePage):
   def add_backpack_to_cart(self):
     self.add_to_cart_backpack_button.click()
 
+  def go_to_cart(self):
+    self.shopping_cart_icon.click()
+
 
 
