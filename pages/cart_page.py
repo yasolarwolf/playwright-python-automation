@@ -9,4 +9,5 @@ class CartPage(BasePage):
     self.cart_item_name = page.locator(".inventory_item_name")
     self.checkout_button = page.locator("#checkout")
 
-    
+  def click_checkout(self):
+    self.checkout_button.click()  
