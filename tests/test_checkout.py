@@ -5,15 +5,12 @@ from pages.cart_page import CartPage
 from pages.checkout_step_one_page import CheckoutStepOnePage
 from pages.checkout_step_two_page import CheckoutStepTwoPage
 
-def test_complete_checkout(page: Page):
-  login_page = LoginPage(page)
-  inventory_page = InventoryPage(page)
+def test_complete_checkout(page: Page, logged_in_user ):
+  
+  inventory_page = logged_in_user
   cart_page = CartPage(page)
   checkout_one_page = CheckoutStepOnePage(page)
   checkout_two_page = CheckoutStepTwoPage(page)
-
-  login_page.open("https://www.saucedemo.com/")
-  login_page.login("standard_user", "secret_sauce")
 
   inventory_page.add_backpack_to_cart()
   inventory_page.go_to_cart()
