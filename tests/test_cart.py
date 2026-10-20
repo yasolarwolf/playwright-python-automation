@@ -1,27 +1,47 @@
+import allure
 from playwright.sync_api import Page, expect
-from pages.login_page import LoginPage
-from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 
-def test_item_is_present_in_cart(page: Page, logged_in_user):
-  
-  inventory_page = logged_in_user
-  cart_page = CartPage(page)
+@allure.epic("Saucedemo Testing")
+@allure.feature("Cart Functionality")
 
-  inventory_page.add_backpack_to_cart()
-  inventory_page.go_to_cart()
+class TestCart:
 
-  expect(cart_page.page_title).to_have_text("Your Cart")
-  expect(cart_page.cart_item_name).to_have_text("Sauce Labs Backpack")
+  @allure.story("Add Item to Сart")
+  @allure.title("Verify item is present in the cart after adding from inventory")
+  def test_item_is_present_in_cart(self, page: Page, logged_in_user):
+    inventory_page = logged_in_user
+    cart_page = CartPage(page)
 
-def test_remove_item_from_cart(page: Page, cart_with_item):
-  cart_page = cart_with_item
-  cart_page.remove_backpack_from_cart()
+    with allure.step("Add backpack to card from inventory page"):
+     inventory_page.add_backpack_to_cart()
 
-  expect(cart_page.cart_items).to_be_hidden()
+    with allure.step("Navigate to the cart page"):
+     inventory_page.go_to_cart()
 
-def test_proceed_to_checkout_from_card(page: Page, cart_with_item):
-  cart_page = cart_with_item
-  cart_page.click_checkout()
-  expect(page).to_have_url("https://www.saucedemo.com/checkout-step-one.html")
+    with allure.step("Verify cart title and item name in the cart"):
+     expect(cart_page.page_title).to_have_text("Your Cart")
+     expect(cart_page.cart_item_name).to_have_text("Sauce Labs Backpack")
+
+  @allure.story("Remove Item from Cart")
+  @allure.title("Verify item can be removed from the cart")
+  def test_remove_item_from_cart(self, page: Page, cart_with_item):
+    cart_page = cart_with_item
+
+    with allure.step("Remove backpack from the cart"):
+     cart_page.remove_backpack_from_cart()
+
+    with allure.step("Verify that cart is empty"):
+     expect(cart_page.cart_items).to_be_hidden()
+
+  @allure.story("Checkout Process")
+  @allure.title("Verify navigation from cart to checkout step one")
+  def test_proceed_to_checkout_from_card(self, page: Page, cart_with_item):
+    cart_page = cart_with_item
+
+    with allure.step("Click checkout button in the cart"):
+     cart_page.click_checkout()
+
+    with allure.step("Verify redirection to checkout step one"):
+     expect(page).to_have_url("https://www.saucedemo.com/checkout-step-one.html")
 
