@@ -9,7 +9,6 @@ allure-results/
 allure-report/
 .vscode/
 .idea/
-# Playwright
 /test-results/
 /playwright-report/
 /playwright(.py)?-cache/
