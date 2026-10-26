@@ -3,7 +3,7 @@ from pages.base_page import BasePage
 
 class LoginPage(BasePage):
 
-  def __init__(self, page):
+  def __init__(self, page: Page):
     super().__init__(page)
 
     self.username_input = page.locator("#user-name")

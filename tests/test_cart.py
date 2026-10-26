@@ -45,3 +45,15 @@ class TestCart:
     with allure.step("Verify redirection to checkout step one"):
      expect(page).to_have_url("https://www.saucedemo.com/checkout-step-one.html")
 
+  @allure.story("Cart Navigation")
+  @allure.title("Verify user can return to inventory via 'Continue shopping' button")
+  def test_continue_shopping_from_cart(self, page: Page, cart_with_item):
+   cart_page = cart_with_item
+   with allure.step("Click continue shopping button"):
+    cart_page.click_continue_shopping()
+   with allure.step("Verify redirection back to inventory page"):
+    expect(page).to_have_url("https://www.saucedemo.com/inventory.html")
+
+  
+    
+
