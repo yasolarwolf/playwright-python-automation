@@ -1,5 +1,6 @@
 import allure
 from playwright.sync_api import Page, expect
+from pages.cart_page import CartPage
 
 
 @allure.epic("Saucedemo Testing")
@@ -31,3 +32,17 @@ class TestInventory:
     with allure.step("Verify cart badge is visible and distpays count '1'"):
      expect(inventory_page.cart_badge).to_be_visible()
      expect(inventory_page.cart_badge).to_have_text('1')
+
+  @allure.story("Multiple Items")
+  @allure.title("Verify multiple items can be added to the cart")
+  def test_multiple_items_in_cart(self, page: Page, logged_in_user):
+   inventory_page = logged_in_user
+   cart_page = CartPage(page)
+
+   with allure.step("Add backpack and bike light to cart"):
+    inventory_page.add_backpack_to_cart()
+    inventory_page.add_bike_labs_to_cart()
+   with allure.step("Navigate to the cart page"):
+    inventory_page.go_to_cart()
+   with allure.step("Verify both items are presente in the cart"):
+    expect(cart_page.cart_items).to_have_count(2)
