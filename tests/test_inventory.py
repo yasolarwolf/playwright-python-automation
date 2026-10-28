@@ -44,5 +44,16 @@ class TestInventory:
     inventory_page.add_bike_labs_to_cart()
    with allure.step("Navigate to the cart page"):
     inventory_page.go_to_cart()
-   with allure.step("Verify both items are presente in the cart"):
+   with allure.step("Verify both items are present in the cart"):
     expect(cart_page.cart_items).to_have_count(2)
+
+  @allure.story("Sorting of Items")
+  @allure.title("Verify multiple items can be sorted")
+  def test_sorting_of_items(self, page: Page, logged_in_user):
+   inventory_page = logged_in_user
+   with allure.step("Click of the sorting dropdown"):
+    inventory_page.sorting_dropdown_click()
+   with allure.step("Select sorting price 'high to low' "):
+    inventory_page.select_sorting("hilo")
+   with allure.step("Verify the first item price is highest ($49.99)"):
+    expect(inventory_page.item_price.first).to_have_text("$49.99")
