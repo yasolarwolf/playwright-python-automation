@@ -57,3 +57,18 @@ class TestInventory:
     inventory_page.select_sorting("hilo")
    with allure.step("Verify the first item price is highest ($49.99)"):
     expect(inventory_page.item_price.first).to_have_text("$49.99")
+
+  @allure.story("Navigation")
+  @allure.title("Verify returting from item details  back to inventory page")
+  def test_back_to_products_from_item_details(self, page: Page, logged_in_user):
+   inventory_page = logged_in_user
+   cart_page = logged_in_user
+   with allure.step("Open the first item details page"):
+    inventory_page.cart_item_name.click()
+   with allure.step("Click the button 'Back to products' from the cart page"):
+    cart_page.click_back_to_products()
+   with allure.step("Verify we are back to inventory page"):
+    expect(inventory_page.page_title).to_have_text("Products")
+   
+
+   

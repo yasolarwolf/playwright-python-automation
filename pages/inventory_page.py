@@ -5,13 +5,15 @@ class InventoryPage(BasePage):
   def __init__(self, page):
     super().__init__(page)
 
-    self.page_title = page.locator(".title")
+    self.page_title = page.locator('[data-test="title"]')
     self.shopping_cart_icon = page.locator(".shopping_cart_link")
     self.add_to_cart_backpack_button = page.locator("#add-to-cart-sauce-labs-backpack")
     self.cart_badge = page.locator(".shopping_cart_badge")
     self.add_to_cart_bike_light = page.locator("#add-to-cart-sauce-labs-bike-light")
     self.sort_dropdown = page.locator('[data-test="product-sort-container"]')
     self.item_price = page.locator('[data-test="inventory-item-price"]')
+    self.back_to_products_button = page.locator('[data-test="back-to-products"]')
+    self.cart_item_name = page.locator('[data-test="inventory-item-name"]').first
 
   def add_backpack_to_cart(self):
     self.add_to_cart_backpack_button.click()
@@ -27,6 +29,9 @@ class InventoryPage(BasePage):
 
   def select_sorting(self, option_value : str):
     self.sort_dropdown.select_option(option_value)
+
+  def click_back_to_products(self):
+    self.back_to_products_button.click()
 
  
   
