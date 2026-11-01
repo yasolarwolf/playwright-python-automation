@@ -54,6 +54,21 @@ class TestCart:
    with allure.step("Verify redirection back to inventory page"):
     expect(page).to_have_url("https://www.saucedemo.com/inventory.html")
 
+  @allure.story("Cart Persistence")
+  @allure.title("Verify items persist in the cart after the page reload")
+  def test_cart_persistence_after_reload(self, page:Page, logged_in_user):
+    inventory_page = logged_in_user
+    cart_page = CartPage(page)
+    with allure.step("Add backpack to cart from inventory page"):
+     inventory_page.add_backpack_to_cart()
+    with allure.step("Navigate to the cart page"):
+      inventory_page.go_to_cart()
+    with allure.step("Reload the cart page"):
+      page.reload()
+    with allure.step("Verify item is still present after reload the cart page"):
+      expect(cart_page.cart_item_name).to_have_text("Sauce Labs Backpack")
+
+
   
     
 
