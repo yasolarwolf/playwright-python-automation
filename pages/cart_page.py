@@ -11,7 +11,8 @@ class CartPage(BasePage):
     self.remove_backpack_button = page.locator('[data-test="remove-sauce-labs-backpack"]')
     self.cart_items = page.locator(".cart_item")
     self.continue_shopping_button = page.locator ("#continue-shopping")
-    
+    self.cart_item_price = page.locator('.cart_item [data-test="inventory-item-price"]')
+
 
   def click_checkout(self):
     self.checkout_button.click()  

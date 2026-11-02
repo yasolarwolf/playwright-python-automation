@@ -68,6 +68,14 @@ class TestCart:
     with allure.step("Verify item is still present after reload the cart page"):
       expect(cart_page.cart_item_name).to_have_text("Sauce Labs Backpack")
 
+  @allure.story("Cart Data")
+  @allure.title("Verify price on the cart matches the expected price")
+  def test_cart_item_price(self, page: Page, cart_with_item):
+    cart_page = cart_with_item
+
+    with allure.step("Verify backpack price in the cart"):
+     expect(cart_page.cart_item_price).to_have_text("$29.99")
+   
 
   
     
