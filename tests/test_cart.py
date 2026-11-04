@@ -1,6 +1,7 @@
 import allure
 from playwright.sync_api import Page, expect
 from pages.cart_page import CartPage
+from pages.inventory_page import InventoryPage
 
 @allure.epic("Saucedemo Testing")
 @allure.feature("Cart Functionality")
@@ -75,7 +76,21 @@ class TestCart:
 
     with allure.step("Verify backpack price in the cart"):
      expect(cart_page.cart_item_price).to_have_text("$29.99")
-   
+
+  @allure.story("Cart State")
+  @allure.title("Verify item button 'Add to cart' after removing it in cart")
+  def test_button_state_resets_after_cart_remove(self, page: Page, cart_with_item):
+   cart_page = cart_with_item
+
+   with allure.step("Remove item while in the cart"):
+    cart_page.remove_backpack_from_cart()
+   with allure.step("Click to return to inventory"):
+    inventory_page = cart_page.click_continue_shopping()
+   with allure.step("Verify that backpack button changed back to 'Add to cart'"):
+    expect(inventory_page.add_to_cart_backpack_button).to_be_visible()
+
+  
+    
 
   
     

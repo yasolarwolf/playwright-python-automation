@@ -22,5 +22,8 @@ class CartPage(BasePage):
 
   def click_continue_shopping(self):
     self.continue_shopping_button.click()
+    from pages.inventory_page import InventoryPage
+    return InventoryPage(self.page)
+    
 
   
